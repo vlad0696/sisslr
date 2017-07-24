@@ -16,7 +16,7 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
         <mapping class="org.ipps.sisslr.models.Users"/>
         <mapping class="org.ipps.sisslr.models.Address"/>
-
+        <mapping class="org.ipps.sisslr.models.Licenses"/>
 
     </session-factory>
 </hibernate-configuration>

@@ -14,7 +14,7 @@
 
 <h2>${currentNode.properties['jcr:title'].string}</h2>
 
-
+<%exampleController.setData();%>
 <ul>
     <c:forEach var="entity" items="<%= exampleController.getHello()%>">
         <li>${entity.id} : "${entity.city}"</li>
@@ -25,9 +25,39 @@
 <ul>
     <c:forEach var="entity" items="<%= exampleController.getUsers()%>">
         <li>
-            <input type="hidden" value="${entity.id}" />
-            <input type="text" value="${entity.firstname}" /> ,  "${entity.lastname}",  "${entity.email}" ,  "${entity.phonenumber}"
+            <input type="hidden" value="${entity.id}"  class="id"/>
+            <input type="text" value="${entity.firstname}"  class="FirstName"/>
+            <input type="text" value="${entity.lastname}"  class="LastName"/>
+            <input type="text"  value="${entity.email}" class="Email"/>
+            <input type="text"  value="${entity.phonenumber}" class="Phone"/>
+            <input type="button" value="Сохранить" class="update">
         </li>
     </c:forEach>
 
 </ul>
+
+<script>
+    $(document).ready(function () {
+        $(document).on('click', '.update', function () {
+            var id = $(this).closest('tr').find('input.id').val();
+
+            var FirstName = $(this).closest('tr').find('input.FirstName').val();
+            var LastName = $(this).closest('tr').find('input.LastName').val();
+            var Email = $(this).closest('tr').find('input.Email').val();
+            var Phone = $(this).closest('tr').find('input.Phone').val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/disease/update',
+                data: {id: id, FirstName: FirstName, action:LastName },
+                success: function (data) {
+                    location.reload();
+                },
+                async: true
+            });
+            location.reload();
+        });
+    });
+
+
+</script>

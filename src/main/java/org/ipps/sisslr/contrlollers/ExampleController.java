@@ -7,10 +7,10 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 import org.ipps.sisslr.models.Address;
+import org.ipps.sisslr.models.Licenses;
 import org.ipps.sisslr.models.Users;
 import org.springframework.stereotype.Controller;
 
-import javax.jws.soap.SOAPBinding;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,32 +48,40 @@ public class ExampleController {
         return list;
     }
 
-    public List<Users> getUsers(){
+
+    public  void setData(){
         SessionFactory sessionFactory  = getSession();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List<Users> list= session.createCriteria(Users.class).list();
+        session.getTransaction().commit();
         session.close();
-        return list;
+    }
+    public List getUsers(){
+        SessionFactory sessionFactory = null;
+        Session session = null;
+        try {
+            sessionFactory = getSession();
+
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            List list= session.createCriteria(Users.class).list();
+
+            return list;
+        }
+        finally {
+            session.close();
+            sessionFactory.close();
+        }
+
     }
 
-    public  static SessionFactory getSession(){
+    static SessionFactory getSession(){
         Configuration configuration = new Configuration();
         configuration.configure();
 
         ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
                 configuration.getProperties()). buildServiceRegistry();
-
         return configuration.buildSessionFactory(serviceRegistry);
     }
-
-  /* public  void testhibernate(){
-        SessionFactory sessionFactory  = getSession();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-
-        session.getTransaction().commit();
-        session.close();
-    }*/
 
 }
