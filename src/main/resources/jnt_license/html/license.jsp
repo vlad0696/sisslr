@@ -14,8 +14,20 @@
 
 <h2>${currentNode.properties['jcr:title'].string}</h2>
 
+
 <ul>
     <c:forEach var="entity" items="<%= exampleController.getHello()%>">
         <li>${entity.id} : "${entity.city}"</li>
     </c:forEach>
+</ul>
+
+
+<ul>
+    <c:forEach var="entity" items="<%= exampleController.getUsers()%>">
+        <li>
+            <input type="hidden" value="${entity.id}" />
+            <input type="text" value="${entity.firstname}" /> ,  "${entity.lastname}",  "${entity.email}" ,  "${entity.phonenumber}"
+        </li>
+    </c:forEach>
+
 </ul>

@@ -23,9 +23,9 @@
     </scm>
     <dependencies>
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>com.springsource.org.postgresql.jdbc4</artifactId>
-            <version>8.3.604</version>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.version}</version>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
