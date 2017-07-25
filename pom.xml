@@ -23,6 +23,12 @@
     </scm>
     <dependencies>
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${hibernate.version}</version>
@@ -45,6 +51,16 @@
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
+        </repository>
+        <repository>
+            <id>repository.springsource.com.release</id>
+            <name>SpringSource OBR - Release</name>
+            <url>http://repository.springsource.com/maven/bundles/release</url>
+        </repository>
+        <repository>
+            <id>repository.springsource.com.external</id>
+            <name>SpringSource OBR - External</name>
+            <url>http://repository.springsource.com/maven/bundles/external</url>
         </repository>
     </repositories>
 

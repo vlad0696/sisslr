@@ -1,6 +1,7 @@
 package org.ipps.sisslr.models;
 
 
+import javax.enterprise.inject.Model;
 import javax.persistence.*;
 
 /**
@@ -62,5 +63,9 @@ public class Users {
         PhoneNumber = phoneNumber;
     }
 
+    @Override
+    public String toString() {
+        return "Id: "+getId()+ ", Name: '" + getfirstname()+ "', Last Name: '" + getlastname() + "', Email: '" + getEmail()+ "'";
+    }
 
 }

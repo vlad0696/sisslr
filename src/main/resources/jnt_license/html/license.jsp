@@ -13,29 +13,19 @@
 <% ExampleController exampleController = new ExampleController();%>
 
 <h2>${currentNode.properties['jcr:title'].string}</h2>
-
-<%exampleController.setData();%>
-<ul>
-    <c:forEach var="entity" items="<%= exampleController.getHello()%>">
-        <li>${entity.id} : "${entity.city}"</li>
-    </c:forEach>
-</ul>
-
-
-<ul>
+<table>
     <c:forEach var="entity" items="<%= exampleController.getUsers()%>">
-        <li>
-            <input type="hidden" value="${entity.id}"  class="id"/>
-            <input type="text" value="${entity.firstname}"  class="FirstName"/>
-            <input type="text" value="${entity.lastname}"  class="LastName"/>
-            <input type="text"  value="${entity.email}" class="Email"/>
-            <input type="text"  value="${entity.phonenumber}" class="Phone"/>
-            <input type="button" value="Сохранить" class="update">
-        </li>
+        <tr>
+            <td><input type="hidden" value="${entity.id}"  class="id"/></td>
+            <td><input type="text" value="${entity.firstname}"  class="FirstName"/></td>
+            <td><input type="text" value="${entity.lastname}"  class="LastName"/></td>
+            <td><input type="text"  value="${entity.email}" class="Email"/></td>
+            <td><input type="text"  value="${entity.phonenumber}" class="Phone"/></td>
+            <td><input type="button" value="Сохранить" class="update"></td>
+        </tr>
     </c:forEach>
 
-</ul>
-
+</table>
 <script>
     $(document).ready(function () {
         $(document).on('click', '.update', function () {
@@ -48,16 +38,15 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/disease/update',
-                data: {id: id, FirstName: FirstName, action:LastName },
+                url: '/cms/example/update',
+                data: {Id: id, FirstName: FirstName, LastName: LastName, Email:Email, PhoneNumber:Phone},
                 success: function (data) {
                     location.reload();
                 },
                 async: true
             });
-            location.reload();
+
         });
     });
-
 
 </script>
