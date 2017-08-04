@@ -5,3 +5,9 @@
 [jnt:license] > jnt:content, mix:title, jmix:basicContent
  - jcr:title (string)
 
+[jnt:licenseDetail] > jnt:content, mix:title, jmix:basicContent
+ - jcr:title (string)
+
+[jnt:editLicense] > jnt:content, mix:title, jmix:basicContent
+ - jcr:title (string)
+

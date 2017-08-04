@@ -9,9 +9,8 @@
 <%@ taglib prefix="query" uri="http://www.jahia.org/tags/queryLib" %>
 <%@ taglib prefix="utility" uri="http://www.jahia.org/tags/utilityLib" %>
 <%@ taglib prefix="s" uri="http://www.jahia.org/tags/search" %>
-<%@page import="org.ipps.sisslr.contrlollers.ExampleController"%>
+<%@page import="org.ipps.sisslr.controllers.ExampleController"%>
 <% ExampleController exampleController = new ExampleController();%>
-
 <h2>${currentNode.properties['jcr:title'].string}</h2>
 <table>
     <c:forEach var="entity" items="<%= exampleController.getUsers()%>">
@@ -21,32 +20,59 @@
             <td><input type="text" value="${entity.lastname}"  class="LastName"/></td>
             <td><input type="text"  value="${entity.email}" class="Email"/></td>
             <td><input type="text"  value="${entity.phonenumber}" class="Phone"/></td>
-            <td><input type="button" value="Сохранить" class="update"></td>
+            <td><input type="button" value="Подробнее" class="update"></td>
+            <td><input type="button" value="Get" class="get"></td>
+            <td class="link"> <a href="home/license-detail.html?id=${entity.id}">Подробнее</a></td>
         </tr>
     </c:forEach>
 
 </table>
+<jsp:include page="test.jsp" />
+<div id="test"> </div>
+<% response.setContentType("text/plain");
+    response.setCharacterEncoding("UTF-8");
+%>
 <script>
     $(document).ready(function () {
         $(document).on('click', '.update', function () {
             var id = $(this).closest('tr').find('input.id').val();
-
             var FirstName = $(this).closest('tr').find('input.FirstName').val();
             var LastName = $(this).closest('tr').find('input.LastName').val();
             var Email = $(this).closest('tr').find('input.Email').val();
             var Phone = $(this).closest('tr').find('input.Phone').val();
-
             $.ajax({
                 type: 'POST',
                 url: '/cms/example/update',
                 data: {Id: id, FirstName: FirstName, LastName: LastName, Email:Email, PhoneNumber:Phone},
+                dataType: 'text',
                 success: function (data) {
-                    location.reload();
+                    $('#test').append(data)
+                },
+                error: function (data) {
+                    alert("ай ай ай!!"+ data);
                 },
                 async: true
             });
 
+
         });
     });
+    $(document).ready(function () {
+        $(document).on('click', '.get', function () {
+            $.ajax({
+                type: 'GET',
+                url: '/cms/example/get',
+                data:{ data:$(this).closest('tr').find('input.FirstName').val()},
+                success: function (data) {
+                    $('#test').append(data)
+                },
+                error: function (data) {
+                    alert("ай ай ай!!")
+                },
+                async: true
+            });
 
+
+        });
+    });
 </script>

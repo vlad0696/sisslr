@@ -10,7 +10,47 @@
                 <sources jcr:mixinTypes="jmix:hasExternalProviderExtension jmix:sourceControl"
                   jcr:primaryType="jnt:moduleVersionFolder"
                   j:staticMountPointProviderKey="module-slr-1.0-SNAPSHOT">
-                    <pom.xml jcr:mixinTypes="jmix:sourceControl" jcr:primaryType="jnt:xmlFile"/>
+                    <pom.xml jcr:primaryType="jnt:xmlFile"/>
+                    <src jcr:mixinTypes="jmix:hasExternalProviderExtension jmix:sourceControl"
+                 jcr:primaryType="jnt:folder">
+                        <main jcr:mixinTypes="jmix:hasExternalProviderExtension jmix:sourceControl"
+                     jcr:primaryType="jnt:folder">
+                            <java jcr:mixinTypes="jmix:hasExternalProviderExtension jmix:sourceControl"
+                        jcr:primaryType="jnt:javaPackageFolder">
+                                <org jcr:mixinTypes="jmix:hasExternalProviderExtension jmix:sourceControl"
+                          jcr:primaryType="jnt:javaPackageFolder">
+                                    <ipps jcr:mixinTypes="jmix:hasExternalProviderExtension jmix:sourceControl"
+                              jcr:primaryType="jnt:folder">
+                                        <sisslr jcr:mixinTypes="jmix:hasExternalProviderExtension jmix:sourceControl"
+                                   jcr:primaryType="jnt:javaPackageFolder">
+                                            <controllers jcr:mixinTypes="jmix:hasExternalProviderExtension jmix:sourceControl"
+                                           jcr:primaryType="jnt:javaPackageFolder">
+                                                <ExampleController.java jcr:mixinTypes="jmix:sourceControl"
+                                                         jcr:primaryType="jnt:javaSourceFile"/>
+                                            </controllers>
+                                        </sisslr>
+                                    </ipps>
+                                </org>
+                            </java>
+                            <resources jcr:mixinTypes="jmix:hasExternalProviderExtension jmix:sourceControl"
+                             jcr:primaryType="jnt:folder">
+                                <jnt_license jcr:mixinTypes="jmix:hasExternalProviderExtension jmix:sourceControl"
+                                  jcr:primaryType="jnt:nodeTypeFolder">
+                                    <html jcr:mixinTypes="jmix:hasExternalProviderExtension jmix:sourceControl"
+                              jcr:primaryType="jnt:templateTypeFolder">
+                                        <license.jsp jcr:mixinTypes="jmix:sourceControl" jcr:primaryType="jnt:viewFile"/>
+                                    </html>
+                                </jnt_license>
+                                <META-INF jcr:mixinTypes="jmix:hasExternalProviderExtension jmix:sourceControl"
+                               jcr:primaryType="jnt:metaInfFolder">
+                                    <spring jcr:mixinTypes="jmix:hasExternalProviderExtension"
+                                jcr:primaryType="jnt:folder">
+                                        <slr.xml jcr:primaryType="jnt:xmlFile"/>
+                                    </spring>
+                                </META-INF>
+                            </resources>
+                        </main>
+                    </src>
                 </sources>
                 
                 <portlets jcr:primaryType="jnt:portletFolder"/>

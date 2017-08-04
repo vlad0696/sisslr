@@ -13,7 +13,6 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  int Id;
-
     private  String FirstName;
 
     private  String LastName;
