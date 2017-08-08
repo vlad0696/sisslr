@@ -39,6 +39,8 @@ public class ExampleController {
             session.close();
             sessionFactory.close();
             //Hello man, how are you?
+            //next try
+
         }
     }
 
