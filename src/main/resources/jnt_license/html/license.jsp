@@ -61,11 +61,15 @@
         $(document).on('click', '.get', function () {
             $.ajax({
                 type: 'GET',
-                url: '/cms/example/get',
-                data:{ data:$(this).closest('tr').find('input.FirstName').val()},
+                url: '/cms/example/JSON',
+                dataType: 'json',
                 success: function (data) {
-                    $('#test').append(data)
-                },
+                        $('#test').append($('<div>', {
+                            text: data[1].FirstName
+                        }));
+
+                    },
+
                 error: function (data) {
                     alert("ай ай ай!!")
                 },

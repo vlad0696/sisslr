@@ -1,6 +1,7 @@
 package org.ipps.sisslr.controllers;
 
 
+import com.google.gson.Gson;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -86,6 +87,26 @@ public class ExampleController {
         response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(data);
+    }
+
+    @RequestMapping(value = "/JSON", method = RequestMethod.GET)
+    public  void getJSON(HttpServletResponse response) throws IOException {
+        response.setContentType("text/plain");
+        response.setCharacterEncoding("UTF-8");
+        SessionFactory sessionFactory = null;
+        Session session = null;
+        try {
+            sessionFactory = getSession();
+
+            session = sessionFactory.openSession();
+            List list= session.createCriteria(Users.class).list();
+            Gson g = new Gson();
+            response.getWriter().write(g.toJson(list));
+        }
+        finally {
+            session.close();
+            sessionFactory.close();
+        }
     }
 
     static SessionFactory getSession(){
