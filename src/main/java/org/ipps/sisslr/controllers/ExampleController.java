@@ -61,6 +61,40 @@ public class ExampleController {
         }
 
     }
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public  void deleteUser( Users user, HttpServletResponse response){
+
+        SessionFactory sessionFactory = null;
+        Session session = null;
+        try {
+            sessionFactory = getSession();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            session.delete(user);
+            session.getTransaction().commit();
+        }
+        finally {
+            session.close();
+            sessionFactory.close();
+        }
+    }
+    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    public  void addUser( Users user, HttpServletResponse response){
+
+        SessionFactory sessionFactory = null;
+        Session session = null;
+        try {
+            sessionFactory = getSession();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            session.save(user);
+            session.getTransaction().commit();
+        }
+        finally {
+            session.close();
+            sessionFactory.close();
+        }
+    }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public  void updateUser( Users user, HttpServletResponse response){
@@ -71,9 +105,8 @@ public class ExampleController {
             session = sessionFactory.openSession();
             session.beginTransaction();
             System.out.println(user.toString());
-        //    session.save(user);
-            response.setContentType("text/plain");
-            response.setCharacterEncoding("UTF-8");
+            session.update(user);
+
             session.getTransaction().commit();
         }
         finally {
@@ -84,8 +117,7 @@ public class ExampleController {
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public  void updateUser(String data, HttpServletResponse response) throws IOException {
-        response.setContentType("text/plain");
-        response.setCharacterEncoding("UTF-8");
+
         response.getWriter().write(data);
     }
 

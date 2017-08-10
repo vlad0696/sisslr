@@ -12,20 +12,28 @@
 <%@page import="org.ipps.sisslr.controllers.ExampleController"%>
 <% ExampleController exampleController = new ExampleController();%>
 <h2>${currentNode.properties['jcr:title'].string}</h2>
-<table>
+<table class="table">
     <c:forEach var="entity" items="<%= exampleController.getUsers()%>">
-        <tr>
-            <td><input type="hidden" value="${entity.id}"  class="id"/></td>
-            <td><input type="text" value="${entity.firstname}"  class="FirstName"/></td>
-            <td><input type="text" value="${entity.lastname}"  class="LastName"/></td>
-            <td><input type="text"  value="${entity.email}" class="Email"/></td>
+        <tr class="table-row-cell">
+            <td class="table-cell"><input type="hidden" value="${entity.id}"  class="id"/></td>
+            <td class="info"><input type="text" value="${entity.firstname}"  class="FirstName"/></td>
+            <td class="danger"><input type="text" value="${entity.lastname}"  class="LastName"/></td>
+            <td class="success"><input type="text"  value="${entity.email}" class="Email"/></td>
             <td><input type="text"  value="${entity.phonenumber}" class="Phone"/></td>
-            <td><input type="button" value="Подробнее" class="update"></td>
-            <td><input type="button" value="Get" class="get"></td>
+            <td><input type="button" value="POST" class="update"></td>
+            <td><input type="button" value="DELETE" class="delete"></td>
+            <td><input type="button" value="GET" class="get"></td>
             <td class="link"> <a href="home/license-detail.html?id=${entity.id}">Подробнее</a></td>
         </tr>
     </c:forEach>
-
+    <tr>
+        <td><input type="hidden" class="id"/></td>
+        <td><input type="text"   class="FirstName"/></td>
+        <td><input type="text"   class="LastName"/></td>
+        <td><input type="text"   class="Email"/></td>
+        <td><input type="text"   class="Phone"/></td>
+        <td><input type="button" value="ADD" class="add"></td>
+    </tr>
 </table>
 <jsp:include page="test.jsp" />
 <div id="test"> </div>
@@ -58,6 +66,53 @@
         });
     });
     $(document).ready(function () {
+        $(document).on('click', '.delete', function () {
+            var id = $(this).closest('tr').find('input.id').val();
+            var FirstName = $(this).closest('tr').find('input.FirstName').val();
+            var LastName = $(this).closest('tr').find('input.LastName').val();
+            var Email = $(this).closest('tr').find('input.Email').val();
+            var Phone = $(this).closest('tr').find('input.Phone').val();
+            $.ajax({
+                type: 'POST',
+                url: '/cms/example/delete',
+                data: {Id: id, FirstName: FirstName, LastName: LastName, Email:Email, PhoneNumber:Phone},
+                dataType: 'text',
+                success: function (data) {
+                    location.reload();
+                },
+                error: function (data) {
+                    alert("ай ай ай!!"+ data);
+                },
+                async: true
+            });
+
+
+        });
+    });
+    $(document).ready(function () {
+        $(document).on('click', '.add', function () {
+            var id = 0;
+            var FirstName = $(this).closest('tr').find('input.FirstName').val();
+            var LastName = $(this).closest('tr').find('input.LastName').val();
+            var Email = $(this).closest('tr').find('input.Email').val();
+            var Phone = $(this).closest('tr').find('input.Phone').val();
+            $.ajax({
+                type: 'POST',
+                url: '/cms/example/addUser',
+                data: {Id: id, FirstName: FirstName, LastName: LastName, Email:Email, PhoneNumber:Phone},
+                dataType: 'text',
+                success: function (data) {
+                },
+                error: function (data) {
+                    alert("ай-ай-ай!!"+ data);
+                },
+                async: true
+            });
+
+
+        });
+    });
+    $(document).ready(function () {
         $(document).on('click', '.get', function () {
             $.ajax({
                 type: 'GET',
@@ -65,11 +120,10 @@
                 dataType: 'json',
                 success: function (data) {
                         $('#test').append($('<div>', {
-                            text: data[1].FirstName
+                            text: data[0].FirstName
                         }));
 
                     },
-
                 error: function (data) {
                     alert("ай ай ай!!")
                 },
